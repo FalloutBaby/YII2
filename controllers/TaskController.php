@@ -29,10 +29,8 @@ class TaskController extends Controller
           ]);
 		 
        return $this->render('index', [
-		   'user' =>
-            ['username' => Yii::$app->user->identity->username],
-		   'tasks' => [$model, $model2
-		   ]
+		   'user' => ['username' => Yii::$app->user->identity->username],
+		   'tasks' => [$model, $model2]
         ]);
     }
 }

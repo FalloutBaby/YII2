@@ -2,6 +2,7 @@
 
 namespace app\models;
 
+use Yii;
 use yii\base\Model;
 
 class Task extends Model
@@ -25,5 +26,12 @@ class Task extends Model
           [['title', 'dateOfCreation', 'deadline'], 'required'],
 		  [['id', 'description', 'userId'], 'safe'],
         ];
+    }
+	
+	public function addUserId($id)
+    {
+        if (Yii::$app->request->post('apply-button')) {
+            $this->userId = Yii::$app->user->identity->username;
+        }
     }
 }

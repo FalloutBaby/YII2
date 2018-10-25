@@ -6,15 +6,24 @@ use yii\base\Model;
 
 class Task extends Model
 {
-	public $name;
-	public $date;
+	public $id;
+	public $title;
+	public $description;
+	public $userId;
+	public $dateOfCreation;
 	public $deadline;
+	private static $count = 0;
+	
+	public function __construct() {
+    	self::$count++;
+		$this->id = self::$count;
+	}
 	
 	public function rules()
     {
         return [
-          [['name', 'date', 'deadline'], 'required'],
-          [['title'], 'myValidate'],
+          [['title', 'dateOfCreation', 'deadline'], 'required'],
+		  [['id', 'description', 'userId'], 'safe'],
         ];
     }
 }

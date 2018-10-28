@@ -31,7 +31,7 @@ $this->title = 'Задачи';
 							</div>
 						<? else: ?>
 							<div class="form-group">
-							<?= Html::submitButton('Взять задачу', ['class' => 'btn btn-primary', 'name' => 'apply-button', 'value' => 'apply-button']) ?>
+							<?= Html::submitButton('Взять задачу', ['class' => 'btn btn-primary', 'name' => 'assign-button', 'value' => 'assign']) ?>
 							</div>
 						<? endif; ?>
 					<?php ActiveForm::end(); ?>

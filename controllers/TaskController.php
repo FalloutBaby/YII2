@@ -12,25 +12,54 @@ class TaskController extends Controller
 	
 	 public function actionIndex()
     {
-		$model = new Task();
+		 // Заглушка без базы
+		$task = new Task();
 		 
-		$model->setAttributes([
+		$task->setAttributes([
 		'title' => 'New Task',
 		'dateOfCreation' => date("Y-m-d"),
 		'deadline' => '2020-01-31'
           ]);
 		 
-		$model2 = new Task();
+		$task2 = new Task();
 		 
-		$model2->setAttributes([
+		$task2->setAttributes([
 		'title' => 'New Task',
 		'dateOfCreation' => date("Y-m-d"),
-		'deadline' => '2018-12-12'
+		'deadline' => '2018-01-12'
           ]);
+		 
+        /*
+		// Проверка валидации, в т.ч. созданного класса
+		
+		var_dump($task->validate());
+		var_dump($task2->validate());
+        var_dump($task2->getErrors());
+        exit;
+		*/ 
 		 
        return $this->render('index', [
 		   'user' => ['username' => Yii::$app->user->identity->username],
-		   'tasks' => [$model, $model2]
+		   'tasks' => [$task, $task2]
         ]);
     }
+	
+	public function actionCreate()
+	{
+		// Заглушка без базы
+		$task = new Task();
+		
+		$task->scenario = Task::SCENARIO_CREATE;
+		
+		$task->setAttributes([
+		'title' => 'New Task',
+		'dateOfCreation' => date("Y-m-d"),
+		'deadline' => '2020-01-31'
+          ]);
+		
+		return $this->render('index', [
+		   'user' => ['username' => Yii::$app->user->identity->username],
+		   'tasks' => [$task]
+        ]);
+	}
 }

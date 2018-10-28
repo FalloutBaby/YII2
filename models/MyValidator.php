@@ -25,8 +25,8 @@ class MyValidator extends Validator
 	
 	public function validateAttribute($model, $attribute)
 	{
-		$value = $model->$attribute;
-		$today = date('Y-m-d'); 
+		$value = date($model->$attribute);
+		$today = date('Y-m-d');
 		
 		if ($today > $value) {
 			$this->addError($model, $attribute, $this->message);

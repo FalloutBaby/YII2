@@ -8,8 +8,6 @@ use app\models\Task;
 
 class TaskController extends Controller
 {
-	
-	
 	 public function actionIndex()
     {
 		 // Заглушка без базы
@@ -46,20 +44,18 @@ class TaskController extends Controller
 	
 	public function actionCreate()
 	{
-		// Заглушка без базы
 		$task = new Task();
 		
-		$task->scenario = Task::SCENARIO_CREATE;
-		
-		$task->setAttributes([
-		'title' => 'New Task',
-		'dateOfCreation' => date("Y-m-d"),
-		'deadline' => '2020-01-31'
-          ]);
-		
-		return $this->render('index', [
+		if ($task->load(Yii::$app->request->post()) && $task->create()){
+			return $this->render('index', [
 		   'user' => ['username' => Yii::$app->user->identity->username],
 		   'tasks' => [$task]
+				]);
+		}
+		
+		return $this->render('create', [
+		   'user' => ['username' => Yii::$app->user->identity->username],
+		   'task' => $task
         ]);
 	}
 }

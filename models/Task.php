@@ -27,6 +27,7 @@ class Task extends Model
         return [
           [['title', 'dateOfCreation', 'deadline'], 'required'],
 		  [['id', 'description', 'userId'], 'safe'],
+		  [['dateOfCreation', 'deadline'], 'date', 'format' => 'php:Y-m-d'],
 		  [['deadline'], MyValidator::class],
         ];
     }
@@ -45,4 +46,13 @@ class Task extends Model
             $this->userId = Yii::$app->user->identity->username;
         }
     }
+	
+	public function create()
+	{
+		$this->dateOfCreation =  date("Y-m-d");
+		if ($this->validate()) {
+			return true;
+		}
+		return false;
+	}
 }

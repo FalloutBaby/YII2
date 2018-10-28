@@ -14,10 +14,12 @@ $this->title = 'Задачи';
 		<? else: ?>
 			<p class="lead">Добро пожаловать, <?= $user['username']; ?>!</p>
 			
+			<a class="btn btn-lg btn-success" href="?r=task/create">Поставить задачу</a>
 		<? endif; ?>
+		<? if($tasks): ?>
 			<? foreach ($tasks as $task): ?>
 				<div class="col-lg-4">
-					<h2><?= $task['title'] . ' ' . $task['id']; ?></h2>
+					<h2><?= $task['title']; ?></h2>
 					<p><?= $task['description']; ?></p>
 					<p>Создана <?= $task['dateOfCreation']; ?></p>
 					<p>Выполнить до <?= $task['deadline']; ?></p>
@@ -27,7 +29,7 @@ $this->title = 'Задачи';
 						<? elseif($task['userId']): ?>
 							<div class="form-group">
 							<p>Выполняет <?= $task['userId']; ?></p>
-							<?= Html::submitButton('Взять задачу', ['class' => 'btn btn-primary', 'name' => 'apply-button']) ?>
+							<?= Html::submitButton('Взять задачу', ['class' => 'btn btn-primary', 'name' => 'assign-button']) ?>
 							</div>
 						<? else: ?>
 							<div class="form-group">
@@ -37,4 +39,5 @@ $this->title = 'Задачи';
 					<?php ActiveForm::end(); ?>
 				</div>
 			<? endforeach; ?>
+			<? endif; ?>
 	</div>

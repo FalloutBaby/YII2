@@ -10,39 +10,45 @@ namespace app\models\tables;
  * @property string $password
  * @property string $authKey
  * @property string $accessToken
+ * @property int $roleId
  */
-class Users extends \yii\db\ActiveRecord
-{
+class Users extends \yii\db\ActiveRecord {
+
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'users';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['username', 'password'], 'required'],
             [['username', 'password', 'authKey', 'accessToken'], 'string', 'max' => 50],
+            [['username'], 'unique'],
+            [['roleId'], 'number']
         ];
     }
 
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels()
-    {
+    public function attributeLabels() {
         return [
             'id' => 'ID',
-            'username' => 'Username',
-            'password' => 'Password',
-            'authKey' => 'Auth Key',
-            'accessToken' => 'Access Token',
+            'username' => 'Имя',
+            'password' => 'Пароль',
+            'authKey' => 'Ключ авторизации',
+            'accessToken' => 'Токен',
+            'roleId' => 'Доступ',
         ];
     }
+
+    public function getRole() {
+        return $this->hasOne(Roles::class, ['id' => 'roleId']);
+    }
+
 }

@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use Yii;
+use app\models\search\TasksFilter;
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
@@ -61,7 +62,13 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $searchModel = new TasksFilter();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, true);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
     }
 
     /**

@@ -40,14 +40,14 @@ class Task extends Model {
             $this->userIdAssigned = Yii::$app->user->identity->id;
         }
     }
-
-    public function create() {
-        $this->userIdCreated = Yii::$app->user->identity->id;
-        $this->dateOfCreation = date("Y-m-d");
-        $task = new Tasks($this);
-        $task->save();
-        return ($this);
-    }
+//
+//    public function create() {
+//        $this->userIdCreated = Yii::$app->user->identity->id;
+//        $this->dateOfCreation = date("Y-m-d");
+//        $task = new Tasks($this);
+//        $task->save();
+//        return ($this);
+//    }
 
     public function getAll() {
         return (Tasks::find()->all());

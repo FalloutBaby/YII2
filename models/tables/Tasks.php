@@ -3,6 +3,7 @@
 namespace app\models\tables;
 
 use Yii;
+use app\models\tables\Users;
 
 /**
  * This is the model class for table "tasks".
@@ -51,12 +52,12 @@ class Tasks extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'Title',
-            'description' => 'Description',
-            'userIdCreated' => 'User Id Created',
-            'userIdAssigned' => 'User Id Assigned',
-            'dateOfCreation' => 'Date Of Creation',
-            'deadline' => 'Deadline',
+            'title' => 'Задача',
+            'description' => 'Описание задачи',
+            'userIdCreated' => 'Id создавшего пользователя',
+            'userIdAssigned' => 'Id выполняющего пользователя',
+            'dateOfCreation' => 'Дата создания',
+            'deadline' => 'Дедлайн',
         ];
     }
 
@@ -67,7 +68,7 @@ class Tasks extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Users::className(), ['id' => 'userIdCreated']);
     }
-
+    
     /**
      * @return \yii\db\ActiveQuery
      */

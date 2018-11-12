@@ -7,39 +7,34 @@ use yii\widgets\DetailView;
 /* @var $model app\models\tables\Tasks */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Tasks', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+if (!$hideBreadcrumbs) {
+    $this->params['breadcrumbs'][] = ['label' => 'Tasks', 'url' => ['index']];
+    $this->params['breadcrumbs'][] = $this->title;
+}
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="tasks-view">
 
     <h1><?= Html::encode($this->title) ?></h1>
-    <p>
+
+    <?=
+    \app\widgets\TaskPreview::widget([
+        'model' => $model,
+    ])
+    ?>
+
+    <? if(Yii::$app->user->identity->username == $model->userIdCreated0->username): ?>
+    <p class="buttons">
         <?= Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
+        <?=
+        Html::a('x', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Are you sure you want to delete this item?',
                 'method' => 'post',
             ],
-        ]) ?>
+        ])
+        ?>
     </p>
-
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'title',
-            [
-                'label' => 'Создано пользователем',
-                'attribute' => 'userIdCreated0.username'
-            ],
-            [
-                'label' => 'Выполняет',
-                'attribute' => 'userIdAssigned0.username'
-            ],
-            'description',
-            'dateOfCreation',
-            'deadline',
-        ],
-    ]) ?>
+    <? endif; ?>
 </div>

@@ -8,6 +8,7 @@ namespace app\models\tables;
  * @property int $id
  * @property string $username
  * @property string $password
+ * @property string $email
  * @property string $authKey
  * @property string $accessToken
  * @property int $roleId
@@ -29,7 +30,8 @@ class Users extends \yii\db\ActiveRecord {
             [['username', 'password'], 'required'],
             [['username', 'password', 'authKey', 'accessToken'], 'string', 'max' => 50],
             [['username'], 'unique'],
-            [['roleId'], 'number']
+            [['roleId'], 'number'],
+            [['email'], 'safe'],
         ];
     }
 
@@ -41,6 +43,7 @@ class Users extends \yii\db\ActiveRecord {
             'id' => 'ID',
             'username' => 'Имя',
             'password' => 'Пароль',
+            'email' => 'Почта',
             'authKey' => 'Ключ авторизации',
             'accessToken' => 'Токен',
             'roleId' => 'Доступ',

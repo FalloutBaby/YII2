@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use Yii;
 use app\models\tables\Tasks;
+use yii\helpers\ArrayHelper;
 use app\models\search\TasksFilter;
 use app\models\tables\Users;
 use yii\web\Controller;
@@ -66,11 +67,11 @@ class TasksController extends Controller
     public function actionCreate()
     {
         $model = new Tasks();
-        $users = Users::find()->all();
+        $users = ArrayHelper::map(Users::find()->all(), 'id', 'username');
         $model->userIdCreated = Yii::$app->user->identity->id;
-        $model->dateOfCreation = date("Y-m-d H:i:s");
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $model->on(Tasks::EVENT_AFTER_INSERT, $model->notification());
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -90,9 +91,10 @@ class TasksController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $users = Users::find()->all();
+        $users = ArrayHelper::map(Users::find()->all(), 'id', 'username');
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $model->on(Tasks::EVENT_AFTER_INSERT, $model->notification());
             return $this->redirect(['view', 'id' => $model->id]);
         }
 

@@ -1,8 +1,8 @@
 <?php
 
 use yii\helpers\Html;
-use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
+use yii\jui\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\tables\Tasks */
@@ -18,12 +18,14 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
     
     <?=
-    $form->field($model, 'userIdAssigned')->dropDownList(ArrayHelper::map($users, 'id', 'username'), [
-        'prompt' => 'Назначьте задачу пользователю'
-    ])
+    $form->field($model, 'userIdAssigned')->dropDownList($users, [
+        'prompt' => 'Назначьте задачу пользователю',
+    ]);
     ?>
-
-    <?= $form->field($model, 'deadline')->textInput() ?>
+    <?= $form->field($model, 'deadline')->widget(DatePicker::class, [
+        'language' => 'ru',
+        'dateFormat' => 'yyyy-MM-dd',
+    ]); ?>
 
     <div class="form-group">
         <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>

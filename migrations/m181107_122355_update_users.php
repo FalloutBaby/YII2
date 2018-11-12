@@ -17,7 +17,7 @@ class m181107_122355_update_users extends Migration
             'role' => $this->string(50)->notNull()
         ]);
         
-        $this->addColumn('users', 'roleId', $this->integer());
+        $this->addColumn('users', 'dateOfUpdate', $this->integer());
         
         $this->batchInsert('roles', ['id', 'role'], [
             ['1', 'admin'],

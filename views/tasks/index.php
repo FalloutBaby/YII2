@@ -31,6 +31,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'tag' => 'div',
             'class' => 'col-lg-4 col-md-6',
         ],    
+        'summary' => false,
         'viewParams' => [
             'hideBreadcrumbs' => true
         ]

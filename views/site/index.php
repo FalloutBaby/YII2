@@ -12,17 +12,20 @@ $this->title = 'My Yii Application';
         ListView::widget([
             'dataProvider' => $dataProvider,
             'itemView' => '../tasks/view',
+            'options' => ['class' => 'col-lg-12 col-md-12 col-sm-12'],
             'itemOptions' => [
                 'tag' => 'div',
                 'class' => 'col-lg-3 col-md-4 col-sm-6',
             ],
+            'summary' => false,
             'viewParams' => [
                 'hideBreadcrumbs' => true
             ]
         ]);
         ?>
     </div>
-        <p><a class="btn btn-lg btn-success" href="?r=tasks">Все задачи</a></p>
+       
+    <p><a class="btn btn-lg btn-success" href="?r=tasks">Все задачи</a></p>
 
     <div class="body-content">
 

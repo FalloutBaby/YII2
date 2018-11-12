@@ -10,7 +10,7 @@ use app\models\tables\Tasks;
  * TasksFilter represents the model behind the search form of `app\models\tables\Tasks`.
  */
 class TasksFilter extends Tasks
-{
+{    
     /**
      * {@inheritdoc}
      */
@@ -53,7 +53,7 @@ class TasksFilter extends Tasks
             'query' => $query->orderBy('deadline ASC'),
             'pagination' => [
                 'pageSize' => '4',
-            ]
+            ],
         ]);
 
         $this->load($params);

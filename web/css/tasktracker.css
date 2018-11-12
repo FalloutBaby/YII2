@@ -1,0 +1,71 @@
+/* 
+    Created on : 12.11.2018, 19:56:33
+    Author     : FalloutBaby
+*/
+
+#w0 {
+    padding: 15px;
+    position: relative;
+}
+
+.tasks-view h2, .tasks-view h1 {
+    color: blue; 
+}
+
+.task-list-link {
+    border: 1px solid blue;
+}
+
+.task-list-link:hover {
+    border: 1px solid lightblue;
+    text-decoration: none;
+    background-color: #efefef;
+}
+
+.task-list-container th, .task-list-container td {
+    padding: 5px;
+}
+
+.task-list-container th {
+    text-align: right;
+}
+
+.task-container {
+    padding: 10px;
+    color: darkslateblue;
+    font-size: 14px;
+    border: 2px dashed blue;
+    max-width: 340px;
+}
+
+.task-preview-content {
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.task-preview-created, .task-preview-updated {
+    font-size: 10px;
+    padding: 0 10px;
+    text-align: right;
+    color: lightblue;
+}
+
+.task-preview-user {
+    background-color: lightskyblue;
+}
+
+.task-preview-deadline {
+    background-color: darkblue;
+}
+
+.task-preview {
+    display: inline-block;
+    color: white;
+    border-radius: 10px;
+    margin: 5px;
+    padding: 5px;
+}
+
+.buttons {
+    margin: 10px;
+}

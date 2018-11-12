@@ -18,7 +18,7 @@ class UsersFilter extends Users
     {
         return [
             [['id', 'roleId'], 'integer'],
-            [['username', 'password', 'authKey', 'accessToken'], 'safe'],
+            [['username', 'password', 'email', 'authKey', 'accessToken'], 'safe'],
         ];
     }
 
@@ -67,6 +67,7 @@ class UsersFilter extends Users
 
         $query->andFilterWhere(['like', 'username', $this->username])
             ->andFilterWhere(['like', 'password', $this->password])
+            ->andFilterWhere(['like', 'email', $this->email])
             ->andFilterWhere(['like', 'authKey', $this->authKey])
             ->andFilterWhere(['like', 'accessToken', $this->accessToken]);
 

@@ -23,7 +23,7 @@ if (!$hideBreadcrumbs) {
     ])
     ?>
 
-    <? if(Yii::$app->user->identity->username == $model->userIdCreated0->username): ?>
+    <? if(Yii::$app->user->identity->username == $model->userCreated0->username): ?>
     <p class="buttons">
         <?= Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?=

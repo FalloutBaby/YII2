@@ -23,13 +23,13 @@ $this->params['breadcrumbs'][] = $this->title;
         'attributes' => [
             [
                 'label' => 'Создано пользователем',
-                'attribute' => 'userIdCreated0.username'
+                'attribute' => 'userCreated0.username'
             ],
             [
                 'label' => 'Выполняет',
-                'attribute' => 'userIdAssigned0.username'
+                'attribute' => 'userAssigned0.username'
             ],
-            'dateOfCreation',
+            'created_at',
             'deadline',
         ],
         'options' => ['class' => 'task-list-container'],

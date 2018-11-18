@@ -18,7 +18,7 @@ use yii\jui\DatePicker;
     <?= $form->field($model, 'description')->textarea(['rows' => 6]) ?>
     
     <?=
-    $form->field($model, 'userIdAssigned')->dropDownList($users, [
+    $form->field($model, 'user_assigned')->dropDownList($users, [
         'prompt' => 'Назначьте задачу пользователю',
     ]);
     ?>

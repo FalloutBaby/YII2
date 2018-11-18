@@ -8,6 +8,10 @@
     position: relative;
 }
 
+#w0 .form-group {
+    display: inline-block;
+}
+
 .tasks-view h2, .tasks-view h1 {
     color: blue; 
 }
@@ -64,6 +68,15 @@
     border-radius: 10px;
     margin: 5px;
     padding: 5px;
+}
+
+.list-view div {
+    margin-bottom: 10px;
+}
+
+.pagination {
+    display: block;
+    clear: both;
 }
 
 .buttons {

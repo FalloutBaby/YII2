@@ -1,13 +1,14 @@
 <?php
 /* @var $this yii\web\View */
 
+use yii\helpers\Html;
 use yii\widgets\ListView;
 
 $this->title = 'My Yii Application';
 ?>
 <div class="site-index">
     <div class="jumbotron">
-    <h1>Задачи на текущий месяц</h1>
+        <h1>Задачи на текущий месяц</h1>
         <?=
         ListView::widget([
             'dataProvider' => $dataProvider,
@@ -24,9 +25,12 @@ $this->title = 'My Yii Application';
         ]);
         ?>
     </div>
-       
-    <p><a class="btn btn-lg btn-success" href="?r=tasks">Все задачи</a></p>
 
+    <p><a class="btn btn-lg btn-success" href="?r=tasks">Все задачи</a></p>
+    <p>
+        <?= Html::a('Поставить задачу', ['tasks/create'], ['class' => 'btn btn-success']) ?>
+    </p>
+    
     <div class="body-content">
 
         <div class="row">

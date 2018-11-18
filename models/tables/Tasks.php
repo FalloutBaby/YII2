@@ -12,14 +12,14 @@ use app\models\tables\Users;
  * @property int $id
  * @property string $title
  * @property string $description
- * @property int $userIdCreated
- * @property int $userIdAssigned
- * @property string $dateOfCreation
- * @property string $dateOfUpdate
+ * @property int $user_created
+ * @property int $user_assigned
+ * @property string $created_at
+ * @property string $updated_at
  * @property string $deadline
  *
- * @property Users $userIdCreated0
- * @property Users $userIdAssigned0
+ * @property Users $userCreated0
+ * @property Users $userAssigned0
  */
 class Tasks extends \yii\db\ActiveRecord {
 
@@ -37,11 +37,11 @@ class Tasks extends \yii\db\ActiveRecord {
         return [
             [['title', 'deadline'], 'required'],
             [['description'], 'string'],
-            [['userIdCreated', 'userIdAssigned'], 'integer'],
-            [['dateOfCreation', 'deadline', 'dateOfUpdate'], 'safe'],
+            [['user_created', 'user_assigned'], 'integer'],
+            [['created_at', 'deadline', 'updated_at'], 'safe'],
             [['title'], 'string', 'max' => 50],
-            [['userIdCreated'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['userIdCreated' => 'id']],
-            [['userIdAssigned'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['userIdAssigned' => 'id']],
+            [['user_created'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['user_created' => 'id']],
+            [['user_assigned'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['user_assigned' => 'id']],
         ];
     }
 
@@ -49,8 +49,8 @@ class Tasks extends \yii\db\ActiveRecord {
         return [
             'timestamp' => [
             'class' => TimestampBehavior::className(),
-            'createdAtAttribute' => 'dateOfCreation',
-            'updatedAtAttribute' => 'dateOfUpdate',
+            'createdAtAttribute' => 'created_at',
+            'updatedAtAttribute' => 'updated_at',
             'value' => new Expression('NOW()'),]
         ];
     }
@@ -63,32 +63,33 @@ class Tasks extends \yii\db\ActiveRecord {
             'id' => 'ID',
             'title' => 'Задача',
             'description' => 'Описание задачи',
-            'userIdCreated' => 'Id создавшего пользователя',
-            'userIdAssigned' => 'Id выполняющего пользователя',
-            'dateOfCreation' => 'Дата создания',
-            'dateOfUpdate' => 'Обновлено',
+            'user_created' => 'Id создавшего пользователя',
+            'user_assigned' => 'Id выполняющего пользователя',
+            'created_at' => 'Дата создания',
+            'updated_at' => 'Обновлено',
             'deadline' => 'Дедлайн',
+            'from_date' => 'Показать месяц',
         ];
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getUserIdCreated0() {
-        return $this->hasOne(Users::className(), ['id' => 'userIdCreated']);
+    public function getUserCreated0() {
+        return $this->hasOne(Users::className(), ['id' => 'user_created']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getUserIdAssigned0() {
-        return $this->hasOne(Users::className(), ['id' => 'userIdAssigned']);
+    public function getUserAssigned0() {
+        return $this->hasOne(Users::className(), ['id' => 'user_assigned']);
     }
 
     public function notification() {
         Yii::$app->mailer->compose()
-                ->setTo(Users::findOne($this->userIdAssigned)->email)
-                ->setFrom(Users::findOne($this->userIdCreated)->email)
+                ->setTo(Users::findOne($this->user_assigned)->email)
+                ->setFrom(Users::findOne($this->user_created)->email)
                 ->setSubject('New task assigned to you')
                 ->setTextBody($this->title . ': ' . $this->description . ' Выполнить до ' . $this->deadline)
                 ->send();

@@ -63,7 +63,7 @@ class SiteController extends Controller
     public function actionIndex()
     {
         $searchModel = new TasksFilter();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, true);
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, 'month');
 
         return $this->render('index', [
             'searchModel' => $searchModel,

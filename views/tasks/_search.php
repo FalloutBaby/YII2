@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\jui\DatePicker;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\search\TasksFilter */
@@ -10,28 +11,23 @@ use yii\widgets\ActiveForm;
 
 <div class="tasks-search">
 
-    <?php $form = ActiveForm::begin([
-        'action' => ['index'],
-        'method' => 'get',
-    ]); ?>
+    <?php
+    $form = ActiveForm::begin([
+                'action' => ['index'],
+                'method' => 'get',
+    ]);
+    ?>
 
-    <?= $form->field($model, 'id') ?>
-
-    <?= $form->field($model, 'title') ?>
-
-    <?= $form->field($model, 'description') ?>
-
-    <?= $form->field($model, 'userIdCreated') ?>
-
-    <?= $form->field($model, 'userIdAssigned') ?>
-
-    <?php // echo $form->field($model, 'dateOfCreation') ?>
-
-    <?php // echo $form->field($model, 'deadline') ?>
-
+    <?=
+    $form->field($model, 'from_date')->widget(DatePicker::class, [
+        'language' => 'ru',
+        'dateFormat' => 'yyyy-MM',
+    ]);
+    ?>
+            
     <div class="form-group">
-        <?= Html::submitButton('Search', ['class' => 'btn btn-primary']) ?>
-        <?= Html::resetButton('Reset', ['class' => 'btn btn-default']) ?>
+        <?= Html::submitButton('Найти', ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Сброс', ['index'], ['class' => 'btn btn-default']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>

@@ -68,9 +68,13 @@ class TasksController extends Controller
     {
         $model = new Tasks();
         $users = ArrayHelper::map(Users::find()->all(), 'id', 'username');
-        $model->userIdCreated = Yii::$app->user->identity->id;
+        $model->user_created = Yii::$app->user->identity->id;
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            if($model->user_assigned == '') {
+                $model->user_assigned = $model->user_created;
+                $model->save();
+            }
             $model->on(Tasks::EVENT_AFTER_INSERT, $model->notification());
             return $this->redirect(['view', 'id' => $model->id]);
         }

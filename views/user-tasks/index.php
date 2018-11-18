@@ -13,6 +13,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <p class="lead">Пожалуйста, войдите или зарегистрируйтесь.</p>
 <? else: ?>
 <p class="lead">Добро пожаловать, <?= Yii::$app->user->identity->username; ?>!</p>
+
 <div class="tasks-index">
     <h1><?= $this->title ?></h1>
 

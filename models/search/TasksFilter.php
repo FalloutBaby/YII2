@@ -2,6 +2,7 @@
 
 namespace app\models\search;
 
+use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use app\models\tables\Tasks;
@@ -9,15 +10,15 @@ use app\models\tables\Tasks;
 /**
  * TasksFilter represents the model behind the search form of `app\models\tables\Tasks`.
  */
-class TasksFilter extends Tasks
-{    
+class TasksFilter extends Tasks {
+
     public $from_date;
     public $to_date;
+
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             [['id', 'user_created', 'user_assigned'], 'integer'],
             [['title', 'description', 'created_at', 'deadline', 'from_date', 'to_date'], 'safe'],
@@ -27,8 +28,7 @@ class TasksFilter extends Tasks
     /**
      * {@inheritdoc}
      */
-    public function scenarios()
-    {
+    public function scenarios() {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
@@ -40,30 +40,37 @@ class TasksFilter extends Tasks
      *
      * @return ActiveDataProvider
      */
-    public function search($params, $askedQuery = null)
-    {
+    public function search($params, $askedQuery = null) {
         $query = Tasks::find();
-        if($askedQuery == 'month') {
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query->where('deadline > LAST_DAY(CURDATE()) + INTERVAL 1 DAY - INTERVAL 1 MONTH')->andWhere('deadline < DATE_ADD(LAST_DAY(CURDATE()), INTERVAL 1 DAY)')->orderBy('deadline ASC'),
-            'pagination' => [
-                'pageSize' => '4',
-            ]
-        ]);
+        if ($askedQuery == 'month') {
+            $dataProvider = new ActiveDataProvider([
+                'query' => $query->where('deadline > LAST_DAY(CURDATE()) + INTERVAL 1 DAY - INTERVAL 1 MONTH')->andWhere('deadline < DATE_ADD(LAST_DAY(CURDATE()), INTERVAL 1 DAY)')->orderBy('deadline ASC'),
+                'pagination' => [
+                    'pageSize' => '4',
+                ]
+            ]);
         } elseif ($askedQuery) {
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query->where(['user_assigned' => $askedQuery]),
-            'pagination' => [
-                'pageSize' => '4',
-            ]
-        ]);
-        };
-        $dataProvider = new ActiveDataProvider([
-            'query' => $query->orderBy('deadline ASC'),
-            'pagination' => [
-                'pageSize' => '4',
-            ],
-        ]);
+            // Для личной страницы пользователя
+            
+            $dataProvider = new ActiveDataProvider([
+                'query' => $query->where(['user_assigned' => $askedQuery]),
+                'pagination' => [
+                    'pageSize' => '4',
+                ]
+            ]);
+            // Кэшируем
+            Yii::$app->db->cache(function () use ($dataProvider) {
+                return $dataProvider->prepare();
+            }, 120);
+        } else {
+
+            $dataProvider = new ActiveDataProvider([
+                'query' => $query->orderBy('deadline ASC'),
+                'pagination' => [
+                    'pageSize' => '4',
+                ],
+            ]);
+        }
 
         $this->load($params);
 
@@ -81,14 +88,15 @@ class TasksFilter extends Tasks
             'created_at' => $this->created_at,
         ]);
 
-        if($this->from_date){
+        if ($this->from_date) {
             $query->andFilterWhere(['>=', 'deadline', $this->from_date])
-            ->andFilterWhere(['<=', 'deadline', date("Y-m-d", strtotime("+1 month", strtotime($this->from_date)))]);
+                    ->andFilterWhere(['<=', 'deadline', date("Y-m-d", strtotime("+1 month", strtotime($this->from_date)))]);
         }
-        
+
         $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'description', $this->description]);
+                ->andFilterWhere(['like', 'description', $this->description]);
 
         return $dataProvider;
     }
+
 }

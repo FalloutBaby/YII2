@@ -25,15 +25,18 @@ $this->title = 'My Yii Application';
         ]);
         ?>
     </div>
-
-    <p><a class="btn btn-lg btn-success" href="?r=tasks">Все задачи</a></p>
     <p>
         <?= Html::a('Поставить задачу', ['tasks/create'], ['class' => 'btn btn-success']) ?>
     </p>
+
+    <p><a class="btn btn-lg btn-success" href="?r=tasks">Все задачи</a></p>
     
     <div class="body-content">
 
         <div class="row">
+            <div class="col-lg-4">
+                <p><a class="btn btn-default" href="?r=user-tasks">Мои задачи &raquo;</a></p>
+            </div>
             <div class="col-lg-4">
                 <p><a class="btn btn-default" href="?r=admin-users">Пользователи &raquo;</a></p>
             </div>

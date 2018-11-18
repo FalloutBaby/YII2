@@ -13,7 +13,7 @@ class UserTasksController extends Controller
         $searchModel = new TasksFilter();
         $query = Yii::$app->user->identity->id;
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $query);
-
+        
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,

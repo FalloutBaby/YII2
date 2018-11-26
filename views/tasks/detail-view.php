@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
+use yii\widgets\ListView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\tables\Tasks */
@@ -25,7 +26,7 @@ if (!$hideBreadcrumbs) {
 
     <? if(Yii::$app->user->identity->username == $model->userCreated0->username): ?>
     <p class="buttons">
-        <?= Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a(Yii::t('taskBtn', 'edit'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?=
         Html::a('x', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
@@ -37,4 +38,22 @@ if (!$hideBreadcrumbs) {
         ?>
     </p>
     <? endif; ?>
+    <?=
+    ListView::widget([
+        'dataProvider' => $dataProvider,
+        'itemView' => '../comments/view',
+        'itemOptions' => [
+            'tag' => 'div',
+            'class' => 'col-lg-4 col-md-6',
+        ],
+        'summary' => false,
+        'viewParams' => [
+            'hideBreadcrumbs' => true
+        ]
+    ]);
+    ?>
+
+    <p>
+        <?= Html::a(Yii::t('taskBtn', 'add'), ['comments/create', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
+    </p>
 </div>

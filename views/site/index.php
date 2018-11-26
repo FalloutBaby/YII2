@@ -8,7 +8,7 @@ $this->title = 'My Yii Application';
 ?>
 <div class="site-index">
     <div class="jumbotron">
-        <h1>Задачи на текущий месяц</h1>
+        <?= Html::tag('h1', Yii::t('layoutHeaders', 'current')); ?>
         <?=
         ListView::widget([
             'dataProvider' => $dataProvider,
@@ -26,16 +26,16 @@ $this->title = 'My Yii Application';
         ?>
     </div>
     <p>
-        <?= Html::a('Поставить задачу', ['tasks/create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('taskBtn', 'add'), ['tasks/create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <p><a class="btn btn-lg btn-success" href="?r=tasks">Все задачи</a></p>
+    <p><?= Html::a(Yii::t('taskBtn', 'all'), ['tasks'], ['class' => 'btn btn-success']) ?></p>
     
     <div class="body-content">
 
         <div class="row">
             <div class="col-lg-4">
-                <p><a class="btn btn-default" href="?r=user-tasks">Мои задачи &raquo;</a></p>
+                <p><?= Html::a(Yii::t('taskBtn', 'my'), ['user-tasks'], ['class' => 'btn btn-default']) ?></p>
             </div>
             <div class="col-lg-4">
                 <p><a class="btn btn-default" href="?r=admin-users">Пользователи &raquo;</a></p>

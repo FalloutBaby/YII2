@@ -5,14 +5,14 @@ use yii\widgets\ListView;
 
 /* @var $this yii\web\View */
 
-$this->title = 'Ваши задачи';
+$this->title = Yii::t('layoutHeaders', 'yours');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <? if(!Yii::$app->user->identity->username): ?>
 <p class="lead">Пожалуйста, войдите или зарегистрируйтесь.</p>
 <? else: ?>
-<p class="lead">Добро пожаловать, <?= Yii::$app->user->identity->username; ?>!</p>
+<p class="lead"><?= Yii::t('layoutHeaders', 'welcome{user}', ['user' => Yii::$app->user->identity->username]); ?></p>
 
 <div class="tasks-index">
     <h1><?= $this->title ?></h1>

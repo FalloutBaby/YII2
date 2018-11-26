@@ -8,7 +8,7 @@ use yii\widgets\ListView;
 /* @var $searchModel app\models\search\UsersFilter */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Users';
+$this->title = Yii::t('layoutHeaders', 'users');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="users-index">

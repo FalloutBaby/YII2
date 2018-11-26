@@ -8,20 +8,20 @@ use yii\jui\DatePicker;
 /* @var $searchModel app\models\search\TasksFilter */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Задачи';
+$this->title = Yii::t('layoutHeaders', 'tasks');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <? if(!Yii::$app->user->identity->username): ?>
 <p class="lead">Пожалуйста, войдите или зарегистрируйтесь.</p>
 <? else: ?>
-<p class="lead">Добро пожаловать, <?= Yii::$app->user->identity->username; ?>!</p>
+<p class="lead"><?= Yii::t('layoutHeaders', 'welcome{user}', ['user' => Yii::$app->user->identity->username]); ?></p>
 <div class="tasks-index">
 
     <h1><?= Html::encode($this->title) ?></h1>
         <?php  echo $this->render('_search', ['model' => $searchModel]);  ?>
 
     <p>
-    <?= Html::a('Поставить задачу', ['create'], ['class' => 'btn btn-success']) ?>
+    <?= Html::a(Yii::t('taskBtn', 'add'), ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
     <?=

@@ -6,6 +6,7 @@ use Yii;
 use app\models\tables\Tasks;
 use yii\helpers\ArrayHelper;
 use app\models\search\TasksFilter;
+use app\models\search\CommentsFilter;
 use app\models\tables\Users;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -59,7 +60,12 @@ class TasksController extends Controller {
             $cache->set($key, $model, 3600);
         }
 
+        $searchModel = new CommentsFilter();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams, $id);
+
         return $this->render('detail-view', [
+                    'searchModel' => $searchModel,
+                    'dataProvider' => $dataProvider,
                     'model' => $this->findModel($id),
         ]);
     }
@@ -110,7 +116,7 @@ class TasksController extends Controller {
                 $model = $this->findModel($id);
                 $cache->set($key, $model, 3600);
             }
-            
+
             $model->on(Tasks::EVENT_AFTER_INSERT, $model->notification());
             return $this->redirect(['view', 'id' => $model->id]);
         }

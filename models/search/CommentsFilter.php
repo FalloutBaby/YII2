@@ -4,29 +4,27 @@ namespace app\models\search;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\tables\Users;
+use app\models\tables\Comments;
 
 /**
- * UsersFilter represents the model behind the search form of `app\models\tables\Users`.
+ * CommentsFilter represents the model behind the search form of `app\models\tables\Comments`.
  */
-class UsersFilter extends Users
-{
+class CommentsFilter extends Comments {
+
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
+    public function rules() {
         return [
-            [['id', 'roleId'], 'integer'],
-            [['username', 'password', 'email', 'authKey', 'accessToken'], 'safe'],
+            [['id', 'user_id', 'task_id'], 'integer'],
+            [['text', 'date_of_creation', 'file'], 'safe'],
         ];
     }
 
     /**
      * {@inheritdoc}
      */
-    public function scenarios()
-    {
+    public function scenarios() {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
@@ -38,16 +36,22 @@ class UsersFilter extends Users
      *
      * @return ActiveDataProvider
      */
-    public function search($params)
-    {
-        $query = Users::find();
+    public function search($params, $id = null) {
+        $query = Comments::find();
 
-        // add conditions that should always apply here
+        if ($id) {
+            $dataProvider = new ActiveDataProvider([
+                'query' => $query->where('task_id = '.$id),
+                'pagination' => [
+                    'pageSize' => '4',
+                ]
+            ]);
+        }
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
             'pagination' => [
-                'pageSize' => '2',
+                'pageSize' => '4',
             ]
         ]);
 
@@ -62,15 +66,15 @@ class UsersFilter extends Users
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'roleId' => $this->roleId,
+            'user_id' => $this->user_id,
+            'task_id' => $this->task_id,
+            'date_of_creation' => $this->date_of_creation,
         ]);
 
-        $query->andFilterWhere(['like', 'username', $this->username])
-            ->andFilterWhere(['like', 'password', $this->password])
-            ->andFilterWhere(['like', 'email', $this->email])
-            ->andFilterWhere(['like', 'authKey', $this->authKey])
-            ->andFilterWhere(['like', 'accessToken', $this->accessToken]);
+        $query->andFilterWhere(['like', 'text', $this->text])
+                ->andFilterWhere(['like', 'file', $this->file]);
 
         return $dataProvider;
     }
+
 }

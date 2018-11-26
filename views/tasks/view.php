@@ -22,11 +22,11 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
         'attributes' => [
             [
-                'label' => 'Создано пользователем',
+                'label' => Yii::t('task', 'userCreated'),
                 'attribute' => 'userCreated0.username'
             ],
             [
-                'label' => 'Выполняет',
+                'label' => Yii::t('task', 'userAssigned'),
                 'attribute' => 'userAssigned0.username'
             ],
             'created_at',

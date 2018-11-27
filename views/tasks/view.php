@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h2><?= Html::encode($this->title) ?></h2>
 
-    <?= Html::beginTag('a', ['href' => '?r=tasks/view&id='.$model->id, 'class' => 'btn-default btn-block task-list-link']); ?>
+    <?= Html::beginTag('a', ['href' => 'tasks/'.$model->id, 'class' => 'btn-default btn-block task-list-link']); ?>
     <?= DetailView::widget([
         'model' => $model,
         'attributes' => [

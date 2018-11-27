@@ -67,8 +67,10 @@ class CommentsController extends Controller {
 
         if (Yii:: $app->request->isPost) {
             $model->load(Yii::$app->request->post());
-            $model->file = UploadedFile::getInstance($model, 'file');
-            $model->uploadFile();
+            if ($model->file) {
+                $model->file = UploadedFile::getInstance($model, 'file');
+                $model->uploadFile();
+            }
             if ($model->save()) {
                 return $this->redirect(['tasks/view', 'id' => $id]);
             }
@@ -91,9 +93,11 @@ class CommentsController extends Controller {
 
         if (Yii:: $app->request->isPost) {
             $model->load(Yii::$app->request->post());
-            $model->file = UploadedFile::getInstance($model, 'file');
-            $model->uploadFile();
-            
+            if ($model->file) {
+                $model->file = UploadedFile::getInstance($model, 'file');
+                $model->uploadFile();
+            }
+
             if ($model->save()) {
                 return $this->redirect(['tasks/view', 'id' => $model->task_id]);
             }

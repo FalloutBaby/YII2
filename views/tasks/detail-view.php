@@ -54,6 +54,6 @@ if (!$hideBreadcrumbs) {
     ?>
 
     <p>
-        <?= Html::a(Yii::t('taskBtn', 'add'), ['comments/create', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
+        <?= Html::a(Yii::t('taskBtn', 'addComm'), ['comments/create', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
     </p>
 </div>

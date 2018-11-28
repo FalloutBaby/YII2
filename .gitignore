@@ -32,11 +32,6 @@ tests/_support/_generated
 #vagrant folder
 /.vagrant
 /assets/
-/config/
-/commands/
-/mail/
-/tests/
-/widgets/
 /vagrant/
 /runtime/
 *.bat

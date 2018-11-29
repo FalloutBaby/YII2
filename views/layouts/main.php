@@ -39,8 +39,8 @@ AppAsset::register($this);
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
             ['label' => Yii::t('layout', 'main'), 'url' => ['/site/index']],
-            ['label' => Yii::t('layout', 'users'), 'url' => ['/admin']],
-            ['label' => Yii::t('layout', 'cabinet'), 'url' => ['/user-tasks/index']],
+            ['visible' => Yii::$app->user->can('adminAccess'), 'label' => Yii::t('layout', 'users'), 'url' => ['/admin']],
+            ['visible' => !Yii::$app->user->isGuest, 'label' => Yii::t('layout', 'cabinet'), 'url' => ['/user-tasks/index']],
             ['label' => Yii::t('layout', 'tasks'), 'url' => ['/tasks/index']],
             ['label' => Yii::t('layout', 'about'), 'url' => ['/site/about']],
             ['label' => Yii::t('layout', 'cotact'), 'url' => ['/site/contact']],

@@ -2,15 +2,16 @@
 
 namespace app\controllers;
 
-use Yii;
-use app\models\tables\Tasks;
-use yii\helpers\ArrayHelper;
-use app\models\search\TasksFilter;
 use app\models\search\CommentsFilter;
+use app\models\search\TasksFilter;
+use app\models\tables\Tasks;
 use app\models\tables\Users;
+use Yii;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * TasksController implements the CRUD actions for Tasks model.
@@ -22,6 +23,39 @@ class TasksController extends Controller {
      */
     public function behaviors() {
         return [
+            'access_update' => [
+                'class' => AccessControl::className(),
+                'only' => ['update'],
+                'rules' => [
+                    [
+                        'actions' => ['update'],
+                        'allow' => true,
+                        'roles' => ['updateTask'],
+                    ],
+                ],
+            ],
+            'access_create' => [
+                'class' => AccessControl::className(),
+                'only' => ['create'],
+                'rules' => [
+                    [
+                        'actions' => ['create'],
+                        'allow' => true,
+                        'roles' => ['createTask'],
+                    ],
+                ],
+            ],
+            'access_delete' => [
+                'class' => AccessControl::className(),
+                'only' => ['delete'],
+                'rules' => [
+                    [
+                        'actions' => ['delete'],
+                        'allow' => true,
+                        'roles' => ['deleteTask'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

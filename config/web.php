@@ -24,6 +24,9 @@ $config = [
         'bootstrap' => [
             'class' => \app\components\Language::class
         ],
+        'authManager' => [
+            'class' => yii\rbac\DbManager::class
+        ],
         'i18n' => [
             'translations' => [
                 'task' => [

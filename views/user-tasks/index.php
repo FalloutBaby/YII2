@@ -9,9 +9,6 @@ $this->title = Yii::t('layoutHeaders', 'yours');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
-<? if(!Yii::$app->user->identity->username): ?>
-<p class="lead">Пожалуйста, войдите или зарегистрируйтесь.</p>
-<? else: ?>
 <p class="lead"><?= Yii::t('layoutHeaders', 'welcome{user}', ['user' => Yii::$app->user->identity->username]); ?></p>
 
 <div class="tasks-index">
@@ -32,4 +29,3 @@ $this->params['breadcrumbs'][] = $this->title;
     ]);
     ?>
 </div>
-<? endif; ?>

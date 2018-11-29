@@ -24,9 +24,11 @@ if (!$hideBreadcrumbs) {
     ])
     ?>
 
-    <? if(Yii::$app->user->identity->username == $model->userCreated0->username): ?>
     <p class="buttons">
+        <? if(Yii::$app->user->can('updateTask')): ?>
         <?= Html::a(Yii::t('taskBtn', 'edit'), ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <? endif; ?>
+        <? if(Yii::$app->user->can('deleteTask')): ?>
         <?=
         Html::a('x', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
@@ -36,8 +38,8 @@ if (!$hideBreadcrumbs) {
             ],
         ])
         ?>
+        <? endif; ?>
     </p>
-    <? endif; ?>
     <?=
     ListView::widget([
         'dataProvider' => $dataProvider,
@@ -53,7 +55,9 @@ if (!$hideBreadcrumbs) {
     ]);
     ?>
 
+    <? if(!Yii::$app->user->isGuest): ?>
     <p>
         <?= Html::a(Yii::t('taskBtn', 'addComm'), ['comments/create', 'id' => $model->id], ['class' => 'btn btn-success']) ?>
     </p>
+    <? endif; ?>
 </div>

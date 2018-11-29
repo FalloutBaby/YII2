@@ -25,21 +25,27 @@ $this->title = 'My Yii Application';
         ]);
         ?>
     </div>
+    <? if(Yii::$app->user->can('createTask')): ?>
     <p>
         <?= Html::a(Yii::t('taskBtn', 'add'), ['tasks/create'], ['class' => 'btn btn-success']) ?>
     </p>
-
+    <? endif; ?>
+    
     <p><?= Html::a(Yii::t('taskBtn', 'all'), ['tasks'], ['class' => 'btn btn-success']) ?></p>
     
     <div class="body-content">
 
         <div class="row">
+            <? if(!Yii::$app->user->isGuest): ?>
             <div class="col-lg-4">
                 <p><?= Html::a(Yii::t('taskBtn', 'my'), ['user-tasks'], ['class' => 'btn btn-default']) ?></p>
             </div>
+            <? endif; ?>
+            <? if(Yii::$app->user->can('adminAccess')): ?>
             <div class="col-lg-4">
                 <p><a class="btn btn-default" href="?r=admin-users">Пользователи &raquo;</a></p>
             </div>
+            <? endif; ?>
             <div class="col-lg-4">
                 <p><a class="btn btn-default" href="http://www.yiiframework.com/doc/">Yii Documentation &raquo;</a></p>
             </div>

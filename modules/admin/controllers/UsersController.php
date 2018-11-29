@@ -2,13 +2,13 @@
 
 namespace app\modules\admin\controllers;
 
-use Yii;
 use app\models\tables\Users;
-use app\models\tables\Roles;
 use app\modules\admin\models\search\UsersFilter;
+use Yii;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
 
 /**
  * AdminUsersController implements the CRUD actions for Users model.
@@ -21,6 +21,15 @@ class UsersController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    [
+                        'allow' => true,
+                        'roles' => ['adminAccess'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -66,7 +75,6 @@ class UsersController extends Controller
     public function actionCreate()
     {
         $model = new Users();
-        $roles = Roles::find()->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -74,7 +82,6 @@ class UsersController extends Controller
 
         return $this->render('create', [
             'model' => $model,
-            'roles' => $roles,
         ]);
     }
 
@@ -88,7 +95,6 @@ class UsersController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $roles = Roles::find()->all();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -96,7 +102,6 @@ class UsersController extends Controller
 
         return $this->render('update', [
             'model' => $model,
-            'roles' => $roles,
         ]);
     }
 

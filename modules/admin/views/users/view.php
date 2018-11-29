@@ -40,7 +40,6 @@ $this->params['breadcrumbs'][] = $this->title;
             'email',
             'authKey',
             'accessToken',
-            'roleId',
         ],
     ])
     ?>

@@ -11,7 +11,6 @@ namespace app\models\tables;
  * @property string $email
  * @property string $authKey
  * @property string $accessToken
- * @property int $roleId
  */
 class Users extends \yii\db\ActiveRecord {
 
@@ -30,7 +29,6 @@ class Users extends \yii\db\ActiveRecord {
             [['username', 'password'], 'required'],
             [['username', 'password', 'authKey', 'accessToken'], 'string', 'max' => 50],
             [['username'], 'unique'],
-            [['roleId'], 'number'],
             [['email'], 'safe'],
         ];
     }
@@ -46,12 +44,7 @@ class Users extends \yii\db\ActiveRecord {
             'email' => 'Почта',
             'authKey' => 'Ключ авторизации',
             'accessToken' => 'Токен',
-            'roleId' => 'Доступ',
         ];
-    }
-
-    public function getRole() {
-        return $this->hasOne(Roles::class, ['id' => 'roleId']);
     }
 
 }

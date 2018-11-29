@@ -7,9 +7,9 @@ use yii\widgets\DetailView;
 /* @var $model app\models\tables\Comments */
 
 $this->title = $model->id;
-if(!$hideBreadcrumbs){
-$this->params['breadcrumbs'][] = ['label' => 'Comments', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+if (!$hideBreadcrumbs) {
+    $this->params['breadcrumbs'][] = ['label' => 'Comments', 'url' => ['index']];
+    $this->params['breadcrumbs'][] = $this->title;
 }
 \yii\web\YiiAsset::register($this);
 ?>
@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
             'text:ntext',
             [
-                'format' => ['image',['width'=>'200','height'=>'100']],
+                'format' => ['image', ['width' => '200', 'height' => '100']],
                 'value' => Yii::getAlias('@uploads/preview/') . $model->file,
                 'attribute' => 'file'
             ],
@@ -35,9 +35,12 @@ $this->params['breadcrumbs'][] = $this->title;
     ])
     ?>
 
-    <? if(Yii::$app->user->identity->username == $model->user->username): ?>
     <p>
+        <? if(Yii::$app->user->identity->username == $model->user->username): ?>
         <?= Html::a('Изменить', ['comments/update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+
+        <? endif; ?>
+        <? if(Yii::$app->user->identity->username == $model->user->username || Yii::$app->user->can('deleteComment')): ?>
         <?=
         Html::a('Удалить', ['comments/delete', 'id' => $model->id, 'taskId' => $model->task_id], [
             'class' => 'btn btn-danger',
@@ -47,7 +50,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ],
         ])
         ?>
+        <? endif; ?>
     </p>
-    <? endif; ?>
 
 </div>

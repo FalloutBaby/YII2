@@ -17,7 +17,7 @@ class UsersFilter extends Users
     public function rules()
     {
         return [
-            [['id', 'roleId'], 'integer'],
+            [['id'], 'integer'],
             [['username', 'password', 'email', 'authKey', 'accessToken'], 'safe'],
         ];
     }
@@ -62,7 +62,6 @@ class UsersFilter extends Users
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'roleId' => $this->roleId,
         ]);
 
         $query->andFilterWhere(['like', 'username', $this->username])

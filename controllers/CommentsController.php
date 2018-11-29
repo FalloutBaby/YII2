@@ -2,13 +2,14 @@
 
 namespace app\controllers;
 
-use Yii;
-use app\models\tables\Comments;
 use app\models\search\CommentsFilter;
-use yii\web\UploadedFile;
+use app\models\tables\Comments;
+use Yii;
+use yii\filters\AccessControl;
+use yii\filters\VerbFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
-use yii\filters\VerbFilter;
+use yii\web\UploadedFile;
 
 /**
  * CommentsController implements the CRUD actions for Comments model.
@@ -20,6 +21,17 @@ class CommentsController extends Controller {
      */
     public function behaviors() {
         return [
+            'access_delete' => [
+                'class' => AccessControl::className(),
+                'only' => ['delete'],
+                'rules' => [
+                    [
+                        'actions' => ['delete'],
+                        'allow' => true,
+                        'roles' => ['deleteComment'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [

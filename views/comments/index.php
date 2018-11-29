@@ -14,10 +14,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
+    
+    <? if(!Yii::$app->user->isGuest): ?>
     <p>
         <?= Html::a('Create Comments', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
+    <? endif; ?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,

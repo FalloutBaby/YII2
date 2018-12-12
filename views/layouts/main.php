@@ -38,22 +38,26 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'Задачи', 'url' => ['/task/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
+
+            ['label' => Yii::t('layout', 'main'), 'url' => ['/site/index']],
+            ['visible' => Yii::$app->user->can('adminAccess'), 'label' => Yii::t('layout', 'users'), 'url' => ['/admin']],
+            ['visible' => !Yii::$app->user->isGuest, 'label' => Yii::t('layout', 'cabinet'), 'url' => ['/user-tasks/index']],
+            ['label' => Yii::t('layout', 'tasks'), 'url' => ['/tasks/index']],
+            ['label' => Yii::t('layout', 'about'), 'url' => ['/site/about']],
+            ['label' => Yii::t('layout', 'cotact'), 'url' => ['/site/contact']],
             Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
+                ['label' => Yii::t('layout', 'login'), 'url' => ['/site/login']]
             ) : (
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
                 . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
+                    Yii::t('layout', 'logout') .' (' . Yii::$app->user->identity->username . ')',
                     ['class' => 'btn btn-link logout']
                 )
                 . Html::endForm()
                 . '</li>'
-            )
+            ),
+            ['label' => Yii::t('layout', 'lang'), 'url' => ['/site/lang']]
         ],
     ]);
     NavBar::end();

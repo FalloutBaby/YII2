@@ -8,41 +8,44 @@ namespace app\models\tables;
  * @property int $id
  * @property string $username
  * @property string $password
+ * @property string $email
  * @property string $authKey
  * @property string $accessToken
  */
-class Users extends \yii\db\ActiveRecord
-{
+class Users extends \yii\db\ActiveRecord {
+
     /**
      * {@inheritdoc}
      */
-    public static function tableName()
-    {
+    public static function tableName() {
         return 'users';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function rules()
-    {
+
+    public function rules() {
         return [
             [['username', 'password'], 'required'],
             [['username', 'password', 'authKey', 'accessToken'], 'string', 'max' => 50],
+            [['username'], 'unique'],
+            [['email'], 'safe'],
         ];
     }
 
     /**
      * {@inheritdoc}
      */
-    public function attributeLabels()
-    {
+
+    public function attributeLabels() {
         return [
             'id' => 'ID',
-            'username' => 'Username',
-            'password' => 'Password',
-            'authKey' => 'Auth Key',
-            'accessToken' => 'Access Token',
+            'username' => 'Имя',
+            'password' => 'Пароль',
+            'email' => 'Почта',
+            'authKey' => 'Ключ авторизации',
+            'accessToken' => 'Токен',
         ];
     }
 }

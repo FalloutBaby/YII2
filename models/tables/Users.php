@@ -24,6 +24,7 @@ class Users extends \yii\db\ActiveRecord {
     /**
      * {@inheritdoc}
      */
+
     public function rules() {
         return [
             [['username', 'password'], 'required'],
@@ -36,6 +37,7 @@ class Users extends \yii\db\ActiveRecord {
     /**
      * {@inheritdoc}
      */
+
     public function attributeLabels() {
         return [
             'id' => 'ID',
@@ -46,5 +48,4 @@ class Users extends \yii\db\ActiveRecord {
             'accessToken' => 'Токен',
         ];
     }
-
 }

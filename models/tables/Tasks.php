@@ -1,6 +1,7 @@
 <?php
 
 namespace app\models\tables;
+
 use yii\behaviors\TimestampBehavior;
 use yii\db\Expression;
 use Yii;
@@ -27,12 +28,14 @@ class Tasks extends \yii\db\ActiveRecord {
      * {@inheritdoc}
      */
     public static function tableName() {
+
         return 'tasks';
     }
 
     /**
      * {@inheritdoc}
      */
+
     public function rules() {
         return [
             [['title', 'deadline'], 'required'],
@@ -65,6 +68,7 @@ class Tasks extends \yii\db\ActiveRecord {
     /**
      * @return \yii\db\ActiveQuery
      */
+
     public function getUserCreated0() {
         return $this->hasOne(Users::className(), ['id' => 'user_created']);
     }

@@ -38,6 +38,7 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
+
             ['label' => Yii::t('layout', 'main'), 'url' => ['/site/index']],
             ['visible' => Yii::$app->user->can('adminAccess'), 'label' => Yii::t('layout', 'users'), 'url' => ['/admin']],
             ['visible' => !Yii::$app->user->isGuest, 'label' => Yii::t('layout', 'cabinet'), 'url' => ['/user-tasks/index']],
